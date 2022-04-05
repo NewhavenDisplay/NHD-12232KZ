@@ -3,7 +3,7 @@
 NHD_12232KZ_mega.ino
 Program for writing to Newhaven Display 122x32(KZ) Graphic LCD with SBN1661G controller
 
-(c)2013 Mike LaVine - Newhaven Display International, LLC. 
+(c)2013 Mike LaVine - Newhaven Display International, LLC.
 
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -19,12 +19,12 @@ Program for writing to Newhaven Display 122x32(KZ) Graphic LCD with SBN1661G con
 
 // The 8 bit data bus is connected to PORTA of the Arduino Mega2560
 
-int RS = 30;      // A0 signal connected to Arduino digital pin 30
-int RW = 31;      // R/W signal connected to Arduino digital pin 31
-int E = 32;       // E signal connected to Arduino digital pin 32
-int RES = 33;     // /RES signal connected to Arduino digital pin 33
-int CS1 = 34;     // /CS1 signal connected to Arduino digital pin 34
-int CS2 = 35;     // /CS2 signal conencted to Arduino digital pin 35
+int RS = 30;  // A0 signal connected to Arduino digital pin 30
+int RW = 31;  // R/W signal connected to Arduino digital pin 31
+int E = 32;   // E signal connected to Arduino digital pin 32
+int RES = 33; // /RES signal connected to Arduino digital pin 33
+int CS1 = 34; // /CS1 signal connected to Arduino digital pin 34
+int CS2 = 35; // /CS2 signal conencted to Arduino digital pin 35
 
 int i, m, n;
 
@@ -41,6 +41,7 @@ void comleft(unsigned char i)
   digitalWrite(E, LOW);
   digitalWrite(CS2, HIGH);
 }
+
 void comright(unsigned char i)
 {
   digitalWrite(CS1, LOW);
@@ -52,6 +53,7 @@ void comright(unsigned char i)
   digitalWrite(E, LOW);
   digitalWrite(CS1, HIGH);
 }
+
 void writeleft(unsigned char i)
 {
   digitalWrite(CS2, LOW);
@@ -63,6 +65,7 @@ void writeleft(unsigned char i)
   digitalWrite(E, LOW);
   digitalWrite(CS2, HIGH);
 }
+
 void writeright(unsigned char i)
 {
   digitalWrite(CS1, LOW);
@@ -74,12 +77,14 @@ void writeright(unsigned char i)
   digitalWrite(E, LOW);
   digitalWrite(CS1, HIGH);
 }
+
 /*****************************************/
 void bothsides(unsigned char i)
 {
   comleft(i);
   comright(i);
 }
+
 /*****************************************/
 void nhd_12232kz_init()
 {
@@ -99,11 +104,12 @@ void nhd_12232kz_init()
   bothsides(0xAF);
   delay(10);
 }
+
 /*****************************************/
 void setup()
 {
-  DDRC = 0xFF;    //set PORTC as output (used for control signals)
-  DDRA = 0xFF;    //set PORTA as output (used for data bus)
+  DDRC = 0xFF; // set PORTC as output (used for control signals)
+  DDRA = 0xFF; // set PORTA as output (used for data bus)
   PORTA = 0x00;
   delay(1);
   digitalWrite(E, LOW);
@@ -113,24 +119,24 @@ void setup()
 }
 
 void loop()
-{ 
+{
   unsigned char d = 0xFF;
-  
-  for(i=0;i<2;i++)
+
+  for (i = 0; i < 2; i++)
   {
     page = 0xB8;
-    for(m=0;m<4;m++)
+    for (m = 0; m < 4; m++)
     {
       bothsides(page);
       bothsides(0x00);
-      for(n=0;n<61;n++)
+      for (n = 0; n < 61; n++)
       {
         writeleft(d);
       }
-      for(n=0;n<61;n++)
+      for (n = 0; n < 61; n++)
       {
         writeright(~d);
-      } 
+      }
       page++;
       d = ~d;
     }
