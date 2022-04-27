@@ -26,9 +26,7 @@ int RES = 33; // /RES signal connected to Arduino digital pin 33
 int CS1 = 34; // /CS1 signal connected to Arduino digital pin 34
 int CS2 = 35; // /CS2 signal conencted to Arduino digital pin 35
 
-int i, m, n;
-
-unsigned char page;
+int i;
 
 void comleft(unsigned char i)
 {
