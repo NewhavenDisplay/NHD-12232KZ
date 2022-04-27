@@ -26,8 +26,6 @@ int RES = 33; // /RES signal connected to Arduino digital pin 33
 int CS1 = 34; // /CS1 signal connected to Arduino digital pin 34
 int CS2 = 35; // /CS2 signal conencted to Arduino digital pin 35
 
-int i;
-
 void comleft(unsigned char i)
 {
   digitalWrite(CS2, LOW);
@@ -120,18 +118,18 @@ void loop()
 {
   unsigned char d = 0xFF;
 
-  for (i = 0; i < 2; i++)
+  for (int i = 0; i < 2; i++)
   {
-    page = 0xB8;
-    for (m = 0; m < 4; m++)
+    int page = 0xB8;
+    for (int m = 0; m < 4; m++)
     {
       bothsides(page);
       bothsides(0x00);
-      for (n = 0; n < 61; n++)
+      for (int n = 0; n < 61; n++)
       {
         writeleft(d);
       }
-      for (n = 0; n < 61; n++)
+      for (int n = 0; n < 61; n++)
       {
         writeright(~d);
       }
